@@ -128,6 +128,89 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  '/chauffeur':
+    get:
+      tags:
+        - Chauffeur
+      summary: Get all chauffeurs
+      operationId: getChauffeur
+      parameters:
+        - name: page
+          in: query
+          schema:
+            $ref: '#/components/schemas/Page'
+        - name: page_size
+          in: query
+          schema:
+            $ref: '#/components/schemas/PageSize'
+        - name: ref
+          in: query
+          description: "Filter chauffeurs by ref, case is ignored"
+          schema:
+            type: string
+        - name: first_name
+          in: query
+          description: "Filter chauffeurs by first name, case is ignored"
+          schema:
+            type: string
+        - name: last_name
+          in: query
+          description: "Filter chauffeurs by last name, case is ignored"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of chauffeurs, ordered by ref.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chauffeur'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - Chauffeur
+      summary: Create new chauffeurs or update existing chauffeurs
+      description: Update chauffeurs when id are provided, create them otherwise.
+      operationId: createOrUpdateChauffeurs
+      requestBody:
+        description: Clienta to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Chauffeur'
+      responses:
+        '200':
+          description: The created or updated chauffeurs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Chauffeur'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   '/offres/{id}':
     get:
       tags:
